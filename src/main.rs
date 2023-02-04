@@ -45,9 +45,13 @@ fn main() {
 
     // Send triangle data to graphics driver
     let vertices: Vec<f32> = vec![
-        -0.5, -0.3, 0.0, 1.0,
-        0.5, -0.5, 0.0, 1.0,
-        0.0, 0.5, 0.0, 1.0,
+        -0.1, 1.0, 0.0,
+        0.1, 1.0, 0.0,
+        -0.1, 0.0, 0.0,
+
+        0.1, 0.0, 0.0,
+        0.1, 1.0, 0.0,
+        -0.1, 0.0, 0.0,
     ];
     let mut vbo: GLuint = 0;
     //let mut vao: GLuint = 123123123;
@@ -66,10 +70,10 @@ fn main() {
 
 
         gl::BindBuffer(gl::ARRAY_BUFFER, vbo);
-        gl::EnableVertexAttribArray(0); // this is "layout (location = 0)" in vertex shader
+        gl::EnableVertexAttribArray(28); // this is "layout (location = 0)" in vertex shader
         gl::VertexAttribPointer(
-            0, // index of the generic vertex attribute ("layout (location = 0)")
-            4, // the number of components per generic vertex attribute
+            28, // index of the generic vertex attribute ("layout (location = 0)")
+            3, // the number of components per generic vertex attribute
             gl::FLOAT, // data type
             gl::FALSE, // normalized (int-to-float conversion)
             // (4 * std::mem::size_of::<f32>()) as GLint, // stride (byte offset between consecutive attributes)
@@ -81,6 +85,9 @@ fn main() {
     }
 
     'main: loop {
+
+        
+
         // handle events
         for event in event_pump.poll_iter() {
             match event {
@@ -96,7 +103,7 @@ fn main() {
             gl::DrawArrays(
                 gl::TRIANGLES, // mode
                 0, // starting index in the enabled arrays
-                3 // number of indices to be rendered
+                6 // number of indices to be rendered
             );
         }
 
