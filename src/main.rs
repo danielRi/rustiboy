@@ -1,8 +1,9 @@
 use sdl2::video::Window;
 use std::ffi::{CString, CStr};
 use gl::types::*;
+use rendering::*;
 
-pub mod render_gl;
+pub mod rendering;
 
 extern crate sdl2;
 extern crate gl;
@@ -30,14 +31,14 @@ fn main() {
     }
 
     // init shader
-    let vert_shader = render_gl::Shader::from_vert_source(
+    let vert_shader = Shader::from_vert_source(
         &CString::new(include_str!("triangle.vert")).unwrap()
     ).unwrap();
     
-    let frag_shader = render_gl::Shader::from_frag_source(
+    let frag_shader = Shader::from_frag_source(
         &CString::new(include_str!("triangle.frag")).unwrap()
     ).unwrap();
-    let shader_program = render_gl::Program::from_shaders(
+    let shader_program = Program::from_shaders(
         &[vert_shader, frag_shader]
     ).unwrap();
 
@@ -86,7 +87,7 @@ fn main() {
 
     'main: loop {
 
-        
+
 
         // handle events
         for event in event_pump.poll_iter() {
